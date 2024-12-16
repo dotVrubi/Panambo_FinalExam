@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class CreatureSorter {
+
+    public static void main(String[] args) {
+        // Creatures and their power levels
+        Map<String, Integer> creatures = new HashMap<>();
+        creatures.put("Dragon", 95);
+        creatures.put("Phoenix", 92);
+        creatures.put("Griffin", 88);
+        creatures.put("Centaur", 85);
+        creatures.put("Unicorn", 78);
+
+        System.out.println("*** Bubble Sort: Descending Order by Power Level ***");
+        // Bubble Sort (strogest first)
+        List<Map.Entry<String, Integer>> bubbleSorted = new ArrayList<>(creatures.entrySet());
+        Collections.sort(bubbleSorted, (a, b) -> b.getValue().compareTo(a.getValue())); // Descending sort
+        printCreatureList(bubbleSorted);
+
+
+        System.out.println("\n*** Selection Sort: Ascending Order by Power Level ***");
+        // Selection sort (weakest first)
+        List<Map.Entry<String, Integer>> selectionSorted = new ArrayList<>(creatures.entrySet());
+        Collections.sort(selectionSorted, (a, b) -> a.getValue().compareTo(b.getValue())); // Ascending sort
+        printCreatureList(selectionSorted);
+
+
+        System.out.println("\n*** Stack Implementation: Popping Creatures ***");
+        // Stack: ArrayList as a stack (LIFO - Last In, First Out)
+        List<Map.Entry<String, Integer>> stack = new ArrayList<>(bubbleSorted); // Start with strongest on top
+        while (!stack.isEmpty()) {
+            Map.Entry<String, Integer> creature = stack.remove(0); // Remove from the beginning (like popping)
+            System.out.println("Popped: " + creature.getKey() + " - " + creature.getValue());
+        }
+    }
+
+    // Print the creature list
+    static void printCreatureList(List<Map.Entry<String, Integer>> creatureList) {
+        for (Map.Entry<String, Integer> creature : creatureList) {
+            System.out.println(creature.getKey() + " - " + creature.getValue());
+        }
+    }
+}
